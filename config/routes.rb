@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
-  scope '/api' do
-    post 'user_token' => 'user_token#create'
-    resources :users
-    resources :articles
+  get 'private/test'
+  get '/current_user', to: 'current_user#index'
+  devise_for :users, path: '', path_names: {
+    sign_in: 'login',
+    sign_out: 'logout',
+    registration: 'signup'
+  },
+  controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+  scope :api do
+    resources :projects
+    resources :favorite_projects, to: 'favorites#create', only: [:create, :destroy]
   end
 end
