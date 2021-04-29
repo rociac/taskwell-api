@@ -10,7 +10,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if resource.persisted?
       render json: {
         status: {code: 200, message: 'Signed up sucessfully.'},
-        data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
+        data: UserBlueprint.render(resource)
       }
     else
       render json: {
@@ -22,6 +22,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :first_name, :last_name, :site_url])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :first_name, :last_name, :site_url, :avatar])
   end
 end

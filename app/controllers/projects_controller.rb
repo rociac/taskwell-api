@@ -1,19 +1,19 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update, :delete, :index]
+  before_action :authenticate_user!, only: [:create, :update, :delete, :user_projects]
   before_action :set_project, only: [:show, :update, :destroy]
   
   def index
-    @projects = current_user.projects.all
-    json_response(@projects)
+    @projects = Project.all
+    render json: ProjectBlueprint.render(@projects)
   end
 
   def create
     @project = current_user.projects.create!(project_params)
-    json_response(@project, :created)
+    render json: ProjectBlueprint.render(@project)
   end
 
   def show
-    json_response(@project)
+    render json: ProjectBlueprint.render(@project)
   end
 
   def update
@@ -26,6 +26,11 @@ class ProjectsController < ApplicationController
     head :no_content
   end
 
+  def user_projects
+    @user_projects = current_user.projects.all
+    render json: ProjectBlueprint.render(@user_projects)
+  end
+
   private
 
   def set_project
@@ -33,6 +38,6 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.permit(:name, :project_type, :description, :live_link)
+    params.permit(:name, :project_type, :description, :live_link, :image)
   end
 end

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'private/test'
   get '/current_user', to: 'current_user#index'
   devise_for :users, path: '', path_names: {
     sign_in: 'login',
@@ -11,7 +10,11 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   scope :api do
+    get 'projects/user_projects'
+    get '/favorited', to: 'favorites#favorited'
     resources :projects
-    resources :favorite_projects, to: 'favorites#create', only: [:create, :destroy]
+    resource :favorite_projects, to: 'favorites#create', only: :create
+    resource :favorite_projects, to: 'favorites#destroy', only: :destroy
+    resources :user_favorites, to: 'favorites#index', only: :index
   end
 end
