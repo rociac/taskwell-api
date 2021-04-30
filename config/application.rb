@@ -23,6 +23,7 @@ module TaskwellApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1 and config.autoloader = :classic
+    config.secret_key_base = '<%= ENV["SECRET_KEY_BASE"] %>'
 
     # Configuration for the application, engines, and railties goes here.
     #

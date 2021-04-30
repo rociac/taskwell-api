@@ -1,7 +1,7 @@
-require_relative '../../config/initializers/shrine'
+# require_relative '../../config/initializers/shrine'
 
-class ImageUploader < Shrine
-  Attacher.validate do
-    validate_mime_type %w[image/jpeg image/png image/webp]
-  end
-end
+# class ImageUploader < Shrine
+#   Attacher.validate do
+#     validate_mime_type %w[image/jpeg image/png image/webp]
+#   end
+# end
