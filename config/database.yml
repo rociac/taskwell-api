@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: taskwell_api_production
-  username: taskwell_api
-  password: <%= ENV['TASKWELL_API_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_URL'] %>
