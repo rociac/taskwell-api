@@ -31,18 +31,18 @@ rails server
 
 ## Endpoints
 
-###GET
+### GET
   * https://taskwell-api.herokuapp.com/current_user               -> Authenticated user details
   * https://taskwell-api.herokuapp.com/api/projects/user_projects -> Current user created projects
   * https://taskwell-api.herokuapp.com/api/user_favorites         -> Current user favorite projects
   
-###POST
+### POST
   * https://taskwell-api.herokuapp.com/login                  -> Authenticates user and creates new session
   * https://taskwell-api.herokuapp.com/signup                 -> Creates new user
   * https://taskwell-api.herokuapp.com/api/projects           -> Creates new project
   * https://taskwell-api.herokuapp.com/api/favorite_projects  -> Adds project to favorites
 
-###DELETE
+### DELETE
   * https://taskwell-api.herokuapp.com/logout -> Destroys current user session
   
   
