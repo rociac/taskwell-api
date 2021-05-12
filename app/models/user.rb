@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
   include Rails.application.routes.url_helpers
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
   after_commit :add_default_avatar, on: [:create, :update]
 
@@ -9,7 +10,8 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: self
 
   validates_presence_of :username, :first_name, :last_name
-  validates_uniqueness_of :username, :email
+  validates_uniqueness_of :username
+  validates_uniqueness_of :email, format: { with: VALID_EMAIL_REGEX }
 
   has_many :projects
   has_many :favorites

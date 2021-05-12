@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = current_user.projects.create!(project_params)
-    render json: ProjectBlueprint.render(@project)
+    render json: ProjectBlueprint.render(@project), status: :created
   end
 
   def show

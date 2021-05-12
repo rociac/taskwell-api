@@ -10,7 +10,7 @@ class FavoritesController < ApplicationController
   def create
     unless current_user.favorites.exists?(favorited: @project, user: current_user)
       @favorite = Favorite.create!(favorited: @project, user: current_user)
-      json_response(@favorite, :created)
+      render json: FavoriteBlueprint.render(@favorite), status: :created
     else
       render json: {
         status: {message: "Already favorited"}
@@ -20,6 +20,7 @@ class FavoritesController < ApplicationController
 
   def destroy
     Favorite.where(favorited_id: @project.id, user_id: current_user.id).first.destroy
+    head :no_content
   end
 
   private

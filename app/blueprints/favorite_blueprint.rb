@@ -1,3 +1,3 @@
 class FavoriteBlueprint < Blueprinter::Base
-  field :favorited
+  fields :favorited, :user
 end

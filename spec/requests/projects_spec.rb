@@ -53,10 +53,10 @@ RSpec.describe 'Projects API', type: :request do
 
   describe 'POST /api/projects' do
     let(:auth_headers) { Devise::JWT::TestHelpers.auth_headers(header, user) }
-    let(:valid_attributes) { { name: 'taskwell', project_type: 'software', description: 'test project', live_link: 'example.com', user_id: user.id } }
+    let(:valid_attributes) {  { name: 'taskwell', project_type: 'software', description: 'test project', live_link: 'example.com', user_id: user.id }  }
 
     context 'when the request is valid' do
-      before { post '/api/projects', headers: auth_headers, params: valid_attributes }
+      before { post '/api/projects', headers: auth_headers, params: valid_attributes.to_json }
 
       it 'creates project' do
         expect(json['name']).to eq('taskwell')
@@ -68,7 +68,7 @@ RSpec.describe 'Projects API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/api/projects', params: { name: 'test' } }
+      before { post '/api/projects', headers: auth_headers, params: { name: 'test' }.to_json }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -85,7 +85,7 @@ RSpec.describe 'Projects API', type: :request do
     let(:valid_attributes) { { name: 'taskwell-api' } } 
 
     context 'when the record exists' do
-      before { put "/api/projects/#{project_id}", params: valid_attributes }
+      before { put "/api/projects/#{project_id}", headers: auth_headers, params: valid_attributes.to_json }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -99,7 +99,7 @@ RSpec.describe 'Projects API', type: :request do
 
   describe 'DELETE /api/projects/:id' do
     let(:auth_headers) { Devise::JWT::TestHelpers.auth_headers(header, user) }
-    before { delete "/api/projects/#{project_id}" }
+    before { delete "/api/projects/#{project_id}", headers: auth_headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
