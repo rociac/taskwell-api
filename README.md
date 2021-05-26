@@ -1,8 +1,14 @@
 # [Taskwell API](https://taskwell-api.herokuapp.com/) 
 
-- [Description](#description)
-- [Installation](#installation)
-- [Contact](#contact)
+- [Taskwell API](#taskwell-api)
+  - [Description](#description)
+  - [Installation](#installation)
+  - [Test Fix](#test-fix)
+  - [Endpoints](#endpoints)
+    - [GET](#get)
+    - [POST](#post)
+    - [DELETE](#delete)
+  - [Contact](#contact)
 
 ## Description
 [Taskwell API](https://taskwell-api.herokuapp.com/) is a REST API built in Ruby on Rails, this API serves a React front end client. You can find the front end client repository [here](https://github.com/rociac/taskwell)
@@ -28,6 +34,10 @@ rails db:setup
 ```
 rails server
 ```
+
+## Test Fix
+
+  https://www.loom.com/share/7226fda73fbc4748808005ab0a6007b7
 
 ## Endpoints
 
