@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '2aa0901cac9b321a55a9561cef7e7c24dafa382ee99b4ed3d383c2b218f5b9d2c995c5ac4b8aee47e21c56c90a1da1f61a19022bef9ce522ce8c7e8714daacf2'
+  # config.secret_key = 'd8d69df2486114d7c377c27ab3b6fce8634d8e22abad883246dce577917249457b9dd4ce13b2679ef273c1dc58de2eecf80230a7d252fdd26d161586665f48fd'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -126,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '6063864f2ca9ec8a6ebe70bb50dd65680cb05d7eb98d22b6d95413820d305e418d4407ff1f6d52592b53b6c6cdc40a0daad9c091a363e64bd8047bd3367adfec'
+  # config.pepper = 'ceaf06ca73a81e033bdb3700d789651d369382fae02a0407183ffdeddf39e51818f37858fa133d49904ab104b6c30af93fee80ab0d80e2d1cfba599d955d73a4'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -168,6 +168,7 @@ Devise.setup do |config|
 
   # Invalidates all the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true
+  config.navigational_formats = []
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
@@ -308,4 +309,14 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+  config.jwt do |jwt|
+    jwt.secret = ENV["jwt_secret"]
+    jwt.dispatch_requests = [
+      ['POST', %r{^/login$}]
+    ]
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/logout$}]
+    ]
+    jwt.expiration_time = 30.minutes.to_i
+  end
 end

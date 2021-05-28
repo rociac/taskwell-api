@@ -5,4 +5,6 @@ RSpec.describe Project, type: :model do
   it { should validate_presence_of(:project_type) }
 
   it { should belong_to(:user) }
+
+  it { should have_one_attached(:image) }
 end
